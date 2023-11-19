@@ -2,6 +2,9 @@ package net.minecraft.src;
 
 public class SuperBTWDefinitions {
 	
+	//lifted straight out of Block.java
+	public static final StepSound soundGlassFootstep = new StepSoundStone("stone", 1.0F, 1.0F);
+	
 	private static final int
 
 		id_leatherWorking = 20000,
@@ -43,6 +46,11 @@ public class SuperBTWDefinitions {
 		
 		id_envelopeOpen = 20023,
 		id_envelopeClosed = 20024,
+		id_tombstonePlacer = 20025,
+		
+		id_pipeEmpty = 20026,
+		id_pipePacked = 20027,
+		id_pipeLit = 20028,
 	
 		//GOURD MANIA!
 				
@@ -66,7 +74,16 @@ public class SuperBTWDefinitions {
 		id_meatCube = 2003,
 		id_blockBedroll = 2004,
 		id_timeCube = 2005,
-		id_wetMudBrick = 2006;
+		id_wetMudBrick = 2006,
+		id_gloryHole = 2007,
+		id_reedThatchSlab = 2008,
+		id_reedThatch = 2009,
+		id_strawThatchSlab = 2010,
+		id_strawThatch = 2011,
+		id_stickBundleLooseSlab = 2012,
+		id_stickBundleLoose = 2013,
+		id_superGlass = 2014,
+		id_superBlock = 2015;
 	
 		
 	
@@ -92,6 +109,10 @@ public class SuperBTWDefinitions {
 	public static Item trowel;
 	public static Item envelopeOpen;
 	public static Item envelopeClosed;
+	public static Item tombstonePlacer;
+	public static Item pipeEmpty;
+	public static Item pipePacked;
+	public static Item pipeLit;
 	
 	public static Block branchBlock;
 	public static Block sunflower;
@@ -99,6 +120,20 @@ public class SuperBTWDefinitions {
 	public static Block meatCube;
 	public static Block fcBlockBedroll;
 	public static Block timeCube;
+	
+	public static Block superGlass;
+	public static Block superBlock;
+
+	public static Block ghBlockGloryhole;
+	
+	public static Block reedThatchSlab;
+	public static Block reedThatch;
+	public static Block strawThatchSlab;
+	public static Block strawThatch;
+	
+	public static Block stickBundleLooseSlab; //untied version
+	public static Block stickBundleLoose;
+
 	
 	public static SuperBTWBlockWetMudBrick wetMudBrick;
 	public static Item wetMudBrickItem;
@@ -132,14 +167,17 @@ public class SuperBTWDefinitions {
 		ribCarvingIron = new SuperBTWItemRibCarvingIron(id_ribCarvingIron - 256);
 		cookedCowRibPartial = new SuperBTWItemCookedCowRibPartial(id_cookedCowRibPartial - 256);
 		cookedCowRibSpent = new SuperBTWItemCookedCowRibSpent(id_cookedCowRibSpent - 256);
-		hoeStoneNew = ( new FCItemHoe( id_hoeStoneNew, EnumToolMaterial.BONE ) ).setUnlocalizedName( "hoeStone" );;
+		hoeStoneNew = ( new FCItemHoe( id_hoeStoneNew, EnumToolMaterial.BONE ) ).setUnlocalizedName( "hoeStone" );
 		bowStringing = new SuperBTWItemBowStringing(id_bowStringing - 256);
 		deathClub = new SuperBTWItemDeathClub(id_deathClub - 256);
 		mortarBucket = new SuperBTWItemMortarBucket(id_mortarBucket - 256);
 		trowel = new SuperBTWItemTrowel(id_trowel - 256);
-		
 		envelopeOpen = new SuperBTWItemEnvelopeOpen(id_envelopeOpen - 256);
 		envelopeClosed = new SuperBTWItemEnvelopeClosed(id_envelopeClosed - 256);
+		tombstonePlacer = new SuperBTWItemTombstonePlacer(id_tombstonePlacer - 256);
+		pipeEmpty = new SuperBTWItemPipeEmpty(id_pipeEmpty - 256);
+		pipePacked = new SuperBTWItemPipePacked(id_pipePacked - 256);
+		pipeLit = new SuperBTWItemPipeLit(id_pipeEmpty - 256);
 		
 		branchBlock = new SuperBTWBlockBranch(id_branchBlock);
 		Item.itemsList[branchBlock.blockID] = new ItemBlock(branchBlock.blockID - 256); 
@@ -153,17 +191,41 @@ public class SuperBTWDefinitions {
 		meatCube = new SuperBTWBlockMeatCube(id_meatCube);
 		Item.itemsList[meatCube.blockID] = new ItemBlock(meatCube.blockID - 256);
 		
+		superGlass = new SuperBTWBlockSuperGlass(id_superGlass, Material.glass).setHardness(0.3F).setStepSound(soundGlassFootstep).setBlockUnbreakable()
+				.setResistance( 6000000F ).setCreativeTab(CreativeTabs.tabBlock).setUnlocalizedName("SuperBTWBlockSuperGlass");
+		Item.itemsList[superGlass.blockID] = new ItemBlock(superGlass.blockID - 256);
+		
+		superBlock = new FCBlockBedrock(id_superBlock).setBlockUnbreakable().setResistance( 6000000F ).setCreativeTab(CreativeTabs.tabBlock)
+				.setUnlocalizedName("SuperBTWBlockSuperBlock");
+		Item.itemsList[superBlock.blockID] = new ItemBlock(superBlock.blockID - 256);
+		
 		fcBlockBedroll = new FCBlockBedroll(id_blockBedroll).setHardness(0.1F).SetBuoyant().setUnlocalizedName("fcBlockBedroll").disableStats();
 		fcItemBedroll = new FCItemBed(id_bedroll - 256, id_blockBedroll).SetBuoyant().SetIncineratedInCrucible().setMaxStackSize(1).setUnlocalizedName("fcItemBedroll");
 		
 		timeCube = new SuperBTWBlockTimeCube(id_timeCube, null);
-		Item.itemsList[timeCube.blockID] = new ItemBlock(timeCube.blockID - 256)
-				.setMaxStackSize( 16 );
+		Item.itemsList[timeCube.blockID] = new ItemBlock(timeCube.blockID - 256).setMaxStackSize( 16 );
 		TileEntity.addMapping(SuperBTWTileEntityTimeCube.class, "timeCube");
 		
 		wetMudBrick = new SuperBTWBlockWetMudBrick(id_wetMudBrick);
 		TileEntity.addMapping(SuperBTWTileEntityWetMudBrick.class, "wetMudbrick");
 		wetMudBrickItem = new SuperBTWItemWetMudBrick(id_wetMudBrickItem - 256);
+		
+		reedThatchSlab = new SuperBTWBlockReedThatchSlab(id_reedThatchSlab);
+		Item.itemsList[reedThatchSlab.blockID] = new SuperBTWItemBlockReedThatchSlab(reedThatchSlab.blockID - 256);
+		reedThatch = new SuperBTWBlockReedThatch(id_reedThatch);
+		Item.itemsList[reedThatch.blockID] = new ItemBlock(reedThatch.blockID - 256);
+		
+		strawThatchSlab = new SuperBTWBlockStrawThatchSlab(id_strawThatchSlab);
+		Item.itemsList[strawThatchSlab.blockID] = new SuperBTWItemBlockStrawThatchSlab(strawThatchSlab.blockID - 256);
+		strawThatch = new SuperBTWBlockStrawThatch(id_strawThatch);
+		Item.itemsList[strawThatch.blockID] = new ItemBlock(strawThatch.blockID - 256);
+		
+		stickBundleLooseSlab = new SuperBTWBlockStickBundleLooseSlab(id_stickBundleLooseSlab);
+		Item.itemsList[stickBundleLooseSlab.blockID] = new SuperBTWItemBlockStickBundleLooseSlab(stickBundleLooseSlab.blockID - 256);
+		stickBundleLoose = new SuperBTWBlockStickBundleLoose(id_stickBundleLoose);
+		Item.itemsList[stickBundleLoose.blockID] = new ItemBlock(stickBundleLoose.blockID - 256);
+		
+
 		
 //        branchBlock = new SuperBTWBlockBranchSlab(id_branchBlock);
 //        Item.itemsList[branchBlock.blockID] = new ItemMultiTextureTile(id_branchBlock - 256, branchBlock, SuperBTWBlockBranchSlab.types);
@@ -182,7 +244,109 @@ public class SuperBTWDefinitions {
 		honeydewMelonSeeds = new SCItemHoneydewMelonSeeds (id_honeydewMelonSeeds - 256, SCDefs.id_melonStemHoneydew);
 		cantaloupeMelonSeeds = new SCItemCantaloupeMelonSeeds (id_cantaloupeMelonSeeds - 256, SCDefs.id_melonStemCantaloupe);
 	
+		//Ts
+		ghBlockGloryhole = new TSGBlockGloryhole(id_gloryHole).setUnlocalizedName("ghBlockGloryhole").setCreativeTab(CreativeTabs.tabDecorations);
+		Item.itemsList[ghBlockGloryhole.blockID] = new ItemBlock(ghBlockGloryhole.blockID - 256);
 		
 	}
+	
+	//BLOCK ID CHECKERS, for when you need to check if a block has a certain quality to it!
+	
+	public static boolean isPlantBlock(int blockID)
+	{
+    	if (blockID == Block.tallGrass.blockID ||
+    			blockID == Block.plantRed.blockID ||
+    			blockID == Block.plantYellow.blockID ||
+    			blockID == Block.mushroomBrown.blockID ||
+    			blockID == Block.mushroomRed.blockID ||
+    			blockID == SuperBTWDefinitions.branchBlock.blockID
+        	)
+    	{
+    		return true;
+    	}
+    	
+    	return false;
+	}
+	
+	//a list of my weak blocks. If a block is weak, it will trigger certain new behaviors outlined in methods below!
+	//this mostly relates to gravity interactions
+	public static boolean isWeakBlock(int blockID)
+	{
+    	if (blockID == SuperBTWDefinitions.strawThatchSlab.blockID || 
+        		blockID == SuperBTWDefinitions.strawThatch.blockID ||
+        		blockID == SuperBTWDefinitions.reedThatchSlab.blockID ||
+        		blockID == SuperBTWDefinitions.reedThatch.blockID ||
+        		blockID == SuperBTWDefinitions.stickBundleLooseSlab.blockID ||
+        		blockID == SuperBTWDefinitions.stickBundleLoose.blockID
+        	)
+    	{
+    		return true;
+    	}
+    	
+    	return false;
+	}
+	
+    //checks if the block ID matches one that will cause weak blocks to break beneath them
+	//for example, if a block of obsidian is placed above thatch, blockIDAbove will equal obsidian
+    public static boolean doesBlockCrushWeaklings(int blockIDAbove)
+    {
+    	if (isWeakBlock(blockIDAbove))
+        {
+        	return false;
+        }
+    	
+    	return true;
+    }
+    
+    //checks if the block ID matches one that will cause weak blocks to fall
+    public static boolean doesBlockTriggerWeaklingFall(int blockIDAbove)
+    {
+
+    	if (isWeakBlock(blockIDAbove) || blockIDAbove == Block.sand.blockID
+    			|| blockIDAbove == FCBetterThanWolves.fcBlockSlabSandAndGravel.blockID
+    			|| blockIDAbove == Block.gravel.blockID
+    			|| blockIDAbove == FCBetterThanWolves.fcBlockDirtLoose.blockID
+    			|| blockIDAbove == FCBetterThanWolves.fcBlockDirtLooseSlab.blockID
+    			)
+        {
+        	return false;
+        }
+    	
+    	return true;
+    }
+    
+//    //AARON's compiled list of falling blocks to be used as pitfall bait
+//    public static boolean isFallingBlock(int blockID)
+//    {
+//    	if (blockID == SuperBTWDefinitions.strawThatchSlab.blockID || 
+//        		blockID == SuperBTWDefinitions.strawThatch.blockID ||
+//        		blockID == SuperBTWDefinitions.reedThatchSlab.blockID ||
+//        		blockID == SuperBTWDefinitions.reedThatch.blockID ||
+//        		blockID == SuperBTWDefinitions.stickBundleLooseSlab.blockID ||
+//        		blockID == SuperBTWDefinitions.stickBundleLoose.blockID
+//        	)
+//    	{
+//    		return true;
+//    	}
+//    	
+//    	return false;
+//    }
+
+   //NOT USED right now. Will be used for water bucket crafting w/ water source detection
+	public static boolean isWaterSourceBlock(int blockID)
+	{
+
+		if (blockID == Block.waterStill.blockID
+				|| blockID == Block.waterMoving.blockID
+				|| blockID == Block.cauldron.blockID)
+		{
+		    //TESTER VVV
+		    System.out.println("Found water source block nearby!");
+			return true;
+		}
+		
+		return false;
+	}
+
 	
 }
